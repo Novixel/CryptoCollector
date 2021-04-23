@@ -9,7 +9,7 @@ auth = bot.auth
 
 quote = "BTC" # Change me ONLY if your a big boy!
 
-MainQuote = "USD"
+MainQuote = "GBP"
 
 def GetTicker(product_id):
     product_id = product_id
