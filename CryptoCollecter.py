@@ -1,9 +1,11 @@
 from AccountSorting import AllAccounts, quote, MainQuote, GetTicker
 import Setup as cfg
 
+curList = []
 
 #lets call this once TO start
 def getSome():
+    global curList
     Accounts = AllAccounts()
     BTC_Values = []
     Main_Values = []
@@ -12,6 +14,7 @@ def getSome():
     for Account in Accounts:
         BTC_Values.append( float(cfg.ReadAccount(Accounts[acNum],str(quote + "_value"))) )
         Main_Values.append( float(cfg.ReadAccount(Accounts[acNum],str(MainQuote + "_value"))) )
+        curList.append(str(cfg.ReadAccount(Accounts[acNum],"currency")))
         acNum +=1
     # got the values from our accounts!!
     return Accounts, Main_Values, BTC_Values
@@ -22,26 +25,25 @@ def CollectCoins(currency, amount):
     minTrade = current * 5
     new = amount * current
 
-    price = new
-    size = amount
+    print("\nBot Has Collected!:","%.8f"%new,quote)
 
-    if new < current:
-        pass
-    elif new > minTrade: # last trade check before the request
-        print("We Can Sell")
-        # trade = auth.place_order(
-        #     product_id= product_id,
-        #     side= 'buy', 
-        #     order_type= 'limit',
-        #     price= price, 
-        #     size= size)
-        # print("\nNewest Trade")
-        # for k,v in trade.items():
-        #         print(k,"=\t",v)
+    price = current
+    size = amount
+    if new > minTrade: # last trade check before the request
+        trade = auth.place_order(
+            product_id= product_id,
+            side= 'sell', 
+            order_type= 'limit',
+            price= price, 
+            size= size)
+        print("\nNewest Trade")
+        for k,v in trade.items():
+                print(k,"=\t",v)
     print("\n")
     print(product_id,"%.8f"%price,"%.2f"%size)
 
 def CollectionRing():
+    global curList
     Accounts, Main_Values, BTC_Values = getSome()
     l1 = 102
     h1 = 120
@@ -61,12 +63,17 @@ def CollectionRing():
             tempValue = value - l3
         else:
             tempValue = 0
+
         if tempValue != 0: # we made it this far and it not 0 
             print(Accounts[count] + ": is collecting:","%.2f"%tempValue,MainQuote)
             cur = str(Accounts[count])
             CollectCoins(cur,tempValue)
             print("\n")
         count +=1
-# lets check it again
 
-CollectionRing()
+    ncount = 0
+    for i in curList:
+        cfg.SaveDisplay(str(i),str(cfg.ReadAccount(i,"usd_value")))
+    return curList
+    print("All Coins Collected!")
+# lets check it again

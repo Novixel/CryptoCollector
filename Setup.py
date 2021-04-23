@@ -56,6 +56,20 @@ def SaveNewApi(key,b64secret,passphrase):
     with open(pathStr, 'w') as conf:
         c.write(conf)
 
+def SaveDisplay(x,d):
+    c = ConfigParser()
+    c.read(pathStr)
+    #Get the api from config
+    if c.has_section(str("DISPLAY")):
+        pass
+    else:
+        c.add_section(str("DISPLAY"))
+    #then edit it
+    display = c[str("DISPLAY")]
+    display[str(x)] = d
+    with open(pathStr, 'w') as conf:
+        c.write(conf)
+
 def SaveAccount(cur, x,d):
     c = ConfigParser()
     c.read(pathStr)
@@ -106,3 +120,18 @@ def ReadAccount(cur,x):
     #Get Info from config
     ACCOUNT = c[str(cur + "ACCOUNT")]
     return ACCOUNT[x]
+
+def ReadDisplay(x):
+    """x = 'currency',etc """
+    c = ConfigParser()
+    c.read(pathStr)
+    #Get Info from config
+    DISPLAY = c["DISPLAY"]
+    return DISPLAY[x]
+
+def ReadALLDisplay():
+    c = ConfigParser()
+    c.read(pathStr)
+    #Get Info from config
+    DISPLAY = c["DISPLAY"]
+    return DISPLAY
