@@ -81,7 +81,7 @@ def AllAccounts():
             print("\n  Total Quote =\t", "%.2f"%exchange, MainQuote)
             sleep(1)
             #Now Lets Send This To a Bot! to check ranges
-    alist.append(float(cfg.ReadAccount("BTC","available")))
+    #alist.append(float(cfg.ReadAccount("BTC","available")))
     QuoteTotal = GetTotal(sum(alist))
     print("\n\tTotal Bitcoin\t", "%.8f"%sum(alist), quote)
     print("\tFor a Total of\t", ("%.2f"%QuoteTotal), MainQuote)
