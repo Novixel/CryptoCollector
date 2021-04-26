@@ -7,6 +7,7 @@ curList = []
 def getSome():
     """accounts , main_values, btc_values"""
     global curList
+    curList = []
     Accounts = AllAccounts()
     BTC_Values = []
     Main_Values = []
@@ -24,7 +25,7 @@ def CollectCoins(currency, value):
     product_id = currency + "-" + MainQuote # Currency pair
     current = float(GetTicker(product_id)) # Current Price For that
     cur1 = 1 / current
-    size = float("%.8f"%(value * cur1))
+    size = float("%.4f"%(value * cur1))
 
     print("\nBot is Collecting!:","%.2f"%value,MainQuote)
     trade = auth.place_order(
@@ -36,19 +37,20 @@ def CollectCoins(currency, value):
     print("\nNewest Trade")
     for k,v in trade.items():
         print(k,"=\t",v)     
-    print("\nBot Has Attempted Collecting!:","%.8f"%size,currency,"at market price:",current)    
+    print("\nBot Has Attempted Collecting!:","%.4f"%size,currency,"at market price:",current)    
     print("\n")
+    return size
 
 def CollectionRing():
     global curList
     Accounts, Main_Values, BTC_Values = getSome()
-    l1 = 102
+    l1 = 100
     h1 = 120
 
-    l2 = 202
+    l2 = 200
     h2 = 220
 
-    l3 = 302
+    l3 = 300
     h3 = 320
     count = 0
     for value in Main_Values:
@@ -64,13 +66,14 @@ def CollectionRing():
         if tempValue != 0: # we made it this far and it not 0 
             print(Accounts[count] + ": needs collecting of :","%.8f"%tempValue,MainQuote)
             cur = str(Accounts[count])
-            CollectCoins(cur,tempValue)
+            s = CollectCoins(cur,tempValue)
+            Main_Values[count] = Main_Values[count] - s
             print("\n")
         count +=1
 
     ncount = 0
     for i in curList:
         cfg.SaveDisplay(str(i),str(cfg.ReadAccount(i,(MainQuote + "_value"))))
-    return curList
+    return curList, Main_Values
     print("All Coins Collected!")
 # lets check it again

@@ -9,7 +9,9 @@ auth = bot.auth
 
 quote = "BTC" # Change me ONLY if your a big boy!
 
-MainQuote = "GBP"
+MainQuote = "USD"
+
+mlist = []
 
 def GetTicker(product_id):
     product_id = product_id
@@ -27,8 +29,10 @@ def GetTotal(available):
 
 def AllAccounts():
     # Lets Check All Of The Accounts With Available Funds
+    global mlist
     a = auth.get_accounts()
     Specials = ["USD","USDC","EUR","GBP"]
+    mlist = []
     alist = []
     acList = []
     print("\n\tAvailable Funds:\n")
@@ -38,6 +42,8 @@ def AllAccounts():
         # Save The Useful Stuff
         if avai > 0 and cur == "BTC": # First check if we have Bitcoin!!!
             acList.append(cur)
+            price = float(GetTicker("BTC-USD"))
+            mlist.append(float("%.4f"%(avai * price)))
             #print("\n",cur)
             for k,v in i.items():
                 cfg.SaveAccount(str(cur),str(k),str(v))
@@ -68,6 +74,8 @@ def AllAccounts():
             convert = avai * price
 
             exchange = GetTotal(float(convert))
+
+            mlist.append(float("%.4f"%exchange))
 
             # Magic Time
 
