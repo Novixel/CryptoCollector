@@ -5,11 +5,11 @@ from AccountSorting import MainQuote
 
 class MainApp(tk.Frame):
     def __init__(self, master):
-        print("Gui Started! Will update every 5 seconds")
+        print("\nGui Started! Will update every 5 seconds")
         self.master = master
         master.title("Account Display")
 
-        welcomeTxt = "Welcome To The Account Display"
+        welcomeTxt = "CRYPTO COLLECTOR DISPLAY"
         self.welcomeLabel = tk.Label(master, text=welcomeTxt)
         self.welcomeLabel.grid(row=0, column=0, rowspan = 1, columnspan = 3)
 
