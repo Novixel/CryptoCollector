@@ -9,13 +9,13 @@ auth = bot.auth
 
 quote = "BTC" # Change me ONLY if your a big boy!
 
-MainQuote = "USD"
+MainQuote = "GBP"
 
 mlist = []
 
 def GetTicker(product_id):
     product_id = product_id
-    #print("\n",product_id,"TICKER")
+    #print("\n #####",product_id,"TICKER")
     tick = auth.get_product_ticker(product_id)
     for k , v in tick.items():
         cfg.SaveTicker(str(k),str(v))
@@ -35,7 +35,7 @@ def AllAccounts():
     mlist = []
     alist = []
     acList = []
-    print("\n\tAvailable Funds:\n")
+    print("\n AVAILABLE FUNDS:")
     for i in a: # Lets Check Every Account
         avai = float(i["available"]) # Grab The Funds
         cur = i["currency"] # And the Ticker Name
@@ -53,11 +53,11 @@ def AllAccounts():
 
         elif avai > 0 and cur != quote: # if we have funds and its NOT bitcoin
             acList.append(cur)
-            print("\n\n\n####\t" + cur + "-"+ quote)
+            print("\n####\t" + cur + "-"+ quote)
             for k,v in i.items():
                 cfg.SaveAccount(str(cur),str(k),str(v)) # save stuff
                 if k == "available":
-                    print("\n      We Have =\t",v,cur)
+                    print("      We Have =\t",v,cur)
                 #print(k,"=\t",v)
 
             # convert the coin if special
@@ -84,14 +84,14 @@ def AllAccounts():
 
             alist.append(convert) # add to list of totals balances in BTC
             convert = convert # make it look pretty for the camera
-            print("\n Market Price =\t", "%.8f"%price, quote)
-            print("\n  Total Value =\t", "%.8f"%convert, quote)
-            print("\n  Total Quote =\t", "%.2f"%exchange, MainQuote)
+            print(" Market Price =\t", "%.8f"%price, quote)
+            print("  Total Value =\t", "%.8f"%convert, quote)
+            print("  Total Quote =\t", "%.2f"%exchange, MainQuote)
             sleep(1)
             #Now Lets Send This To a Bot! to check ranges
     #alist.append(float(cfg.ReadAccount("BTC","available")))
     QuoteTotal = GetTotal(sum(alist))
     print("\n\tTotal Bitcoin\t", "%.8f"%sum(alist), quote)
     print("\tFor a Total of\t", ("%.2f"%QuoteTotal), MainQuote)
-    print("\n")
+   # print("\n")
     return acList

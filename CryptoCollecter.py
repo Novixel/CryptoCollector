@@ -27,18 +27,18 @@ def CollectCoins(currency, value):
     cur1 = 1 / current
     size = float("%.4f"%(value * cur1))
 
-    print("\nBot is Collecting!:","%.2f"%value,MainQuote)
+    #print("\nBot is Collecting!:","%.2f"%value,MainQuote)
     trade = auth.place_order(
         product_id= product_id,
         side= 'sell', 
         order_type= 'limit',
         price= current, 
         size= size)
-    print("\nNewest Trade")
+    #print("\nNewest Trade")
     for k,v in trade.items():
         print(k,"=\t",v)     
-    print("\nBot Has Attempted Collecting!:","%.4f"%size,currency,"at market price:",current)    
-    print("\n")
+    print("Bot Has Attempted Collecting!:","%.4f"%size,currency,"at market price:",current)    
+    #print("\n")
     return size
 
 def CollectionRing():
@@ -64,11 +64,11 @@ def CollectionRing():
             tempValue = 0
 
         if tempValue != 0: # we made it this far and it not 0 
-            print(Accounts[count] + ": needs collecting of :","%.8f"%tempValue,MainQuote)
+            print("\n####",Accounts[count] + ": needs collecting of :","%.8f"%tempValue,MainQuote)
             cur = str(Accounts[count])
             s = CollectCoins(cur,tempValue)
             Main_Values[count] = Main_Values[count] - s
-            print("\n")
+            #print("\n")
         count +=1
 
     ncount = 0

@@ -1,0 +1,5 @@
+
+Version 1.1 Updated by Mohammed(29.4.21)
+- Output cleaned
+- Removed double printing of all coin data
+- Loop runs at 2 min intervals
