@@ -1,10 +1,16 @@
+# Novixel's Simple Display GUI
+# Gui.py
+# CryptoCollector
+# Version 1.2.1b
+# May 5th, 2021
+
 import tkinter as tk
 import Setup as cfg
 from AccountSorting import MainQuote
 
-
 class MainApp(tk.Frame):
     def __init__(self, master):
+        cfg.LogThis("Gui Started! Will update every 5 seconds")
         print("\nGui Started! Will update every 5 seconds")
         self.master = master
         master.title("Account Display")

@@ -1,5 +1,19 @@
+[Version History]
+    Version 1.2.1b [BETA]
+    - Add of float conversion func 
+    - Add of output Logging
+    - Add of Trade format and logging
+    - Note: Beta Version released to client for testing
 
-Version 1.1 Updated by Mohammed(29.4.21)
-- Output cleaned
-- Removed double printing of all coin data
-- Loop runs at 2 min intervals
+    Version 1.1 Updated by Mohammed(29.4.21)
+    - Output cleaned
+    - Removed double printing of all coin data
+    - Loop runs at 2 min intervals
+
+    Version 1 [First Release]
+    - Coinbase Comunication
+    - Account Sorting
+    - Market Checking Loop Bot
+    - Acount Monitoring 
+    - Automatic Profit Sell
+    - Console Logging

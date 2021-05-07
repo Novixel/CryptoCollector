@@ -1,3 +1,9 @@
+# Novixel's Coinbase Account Sorter
+# AccountSorting.py
+# CryptoCollector
+# Version 1.2.1b
+# May 5th, 2021
+
 from Connect import CoinConnect
 import configparser
 import Setup as cfg
@@ -20,6 +26,7 @@ def GetTicker(product_id):
     for k , v in tick.items():
         cfg.SaveTicker(str(k),str(v))
         #print(k, "=\t",v)
+    #cfg.LogThis(("Tick",product_id,tick["price"]))                 # MAYBE !!! CAUTION WILL CALL ALOT
     return tick["price"]
 
 def GetTotal(available):
@@ -28,6 +35,7 @@ def GetTotal(available):
     return x
 
 def AllAccounts():
+    cfg.LogThis(("ALL ACCOUNTS CALLED",""))
     # Lets Check All Of The Accounts With Available Funds
     global mlist
     a = auth.get_accounts()
@@ -36,11 +44,13 @@ def AllAccounts():
     alist = []
     acList = []
     print("\n AVAILABLE FUNDS:")
+    cfg.LogThis(("Reading Available Accounts!",""))
     for i in a: # Lets Check Every Account
         avai = float(i["available"]) # Grab The Funds
         cur = i["currency"] # And the Ticker Name
         # Save The Useful Stuff
         if avai > 0 and cur == "BTC": # First check if we have Bitcoin!!!
+            cfg.LogThis(("Account:","%.4f"%avai,cur))
             acList.append(cur)
             price = float(GetTicker("BTC-USD"))
             mlist.append(float("%.4f"%(avai * price)))
@@ -52,6 +62,7 @@ def AllAccounts():
             cfg.SaveAccount(str(cur),str(MainQuote + "_value"),str("%.2f"%(GetTotal(avai))))
 
         elif avai > 0 and cur != quote: # if we have funds and its NOT bitcoin
+            cfg.LogThis(("Account:","%.4f"%avai,cur))
             acList.append(cur)
             print("\n####\t" + cur + "-"+ quote)
             for k,v in i.items():
@@ -81,17 +92,26 @@ def AllAccounts():
 
             cfg.SaveAccount(str(cur),str(quote + "_value"),str("%.8f"%convert))
             cfg.SaveAccount(str(cur),str(MainQuote + "_value"),str("%.2f"%exchange))
+            cfg.LogThis((str(cur),str(MainQuote + "_value"),str("%.2f"%exchange)))
+            cfg.LogThis((str(cur),str(quote + "_value"),str("%.8f"%convert)))
 
             alist.append(convert) # add to list of totals balances in BTC
             convert = convert # make it look pretty for the camera
             print(" Market Price =\t", "%.8f"%price, quote)
             print("  Total Value =\t", "%.8f"%convert, quote)
             print("  Total Quote =\t", "%.2f"%exchange, MainQuote)
+            cfg.LogThis((" Market Price =", "%.8f"%price, quote))
+            cfg.LogThis(("  Total Value =", "%.8f"%convert, quote))
+            cfg.LogThis(("  Total Quote =", "%.2f"%exchange, MainQuote)) 
             sleep(1)
             #Now Lets Send This To a Bot! to check ranges
     #alist.append(float(cfg.ReadAccount("BTC","available")))
     QuoteTotal = GetTotal(sum(alist))
     print("\n\tTotal Bitcoin\t", "%.8f"%sum(alist), quote)
     print("\tFor a Total of\t", ("%.2f"%QuoteTotal), MainQuote)
+    cfg.LogThis(("Total Bitcoin", "%.8f"%sum(alist), quote)) 
+    cfg.LogThis(("For a Total of", ("%.2f"%QuoteTotal), MainQuote)) 
    # print("\n")
     return acList
+
+AllAccounts()

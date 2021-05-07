@@ -1,9 +1,9 @@
-# Novixel's Connect To Coinbase - The Bitcoin Boxer
-# Version 1 - First Official Release - 
-# April 17, 2021
-#
+# Novixel's Coinbase Connection
 # Connect.py
-#
+# CryptoCollector
+# Version 1.2.1b
+# May 5th, 2021
+# 
 import Setup as cfg
 import cbpro
 import os

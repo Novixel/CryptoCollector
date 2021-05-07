@@ -1,9 +1,13 @@
 # Novixel's Config File Setup
 # ConfigSetup.py
-#
+# CryptoCollector
+# Version 1.2.1b
+# May 5th, 2021
+
 import os
 from pathlib import Path
 from configparser import ConfigParser
+from datetime import datetime
 
 # (Build Directory)
         # Build A place for the bots config files to be stored 
@@ -18,6 +22,8 @@ def BuildBotNest():
 path = str(BuildBotNest()) # we need this for all the settings :)
 
 pathStr = (path + '\info.ini') # create the file string for repeat
+pathTra = (path + '\_trades.ini')
+pathLog = (path + "\log.log")
 
 # (Build Config File)
         # Build a config file in that folder we just made for later use.
@@ -93,6 +99,22 @@ def SaveTicker(x , d ):
     with open(pathStr, 'w') as conf:
         c.write(conf)
 
+def SaveTrade(cur,amount):
+    now = datetime.now()
+    time = now.strftime("%m/%d/%Y, %H:%M:%S")
+    with open(pathTra, 'a') as conf:
+        Text = (time +","+ cur + ",PROFIT," + ("%.4f"%amount))
+        conf.writelines(Text + "\n")
+        conf.close
+
+def LogThis(message):
+    message = str(message)
+    now = datetime.now()
+    time = now.strftime("%m/%d/%Y, %H:%M:%S")
+    with open(pathLog, 'a') as log:
+        Text = (time + ":DEBUG: " + message)
+        log.writelines(Text + "\n")
+        log.close
 
 # (Read That Config File)
 # Read the file and assign variables to the values
