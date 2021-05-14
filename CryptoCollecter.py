@@ -8,7 +8,6 @@ import Setup as cfg
 curList = []
 Custom = ["1INCH","ADA","ALGO","ANKR","BTC","ETC","ETH","LINK","LTC","MATIC","NU","SNX","SUSHI"]
 CustomSIZE = [0.1,1,1,10,0.0001,0.1,0.0001,0.1,0.01,5,10,0.1,0.1]
-
 #lets call this once TO start
 def getSome():
     cfg.LogThis(("GET SOME CALLED",""))
@@ -54,14 +53,9 @@ def CollectCoins(currency, value):
     size = float("%.4f"%(value * cur1))
 
     if currency in Custom:
-        count = 0
         for i in Custom:
             if i == currency:
-                if size >= CustomSIZE[count]:
-                    size = funTimes(size)
-                else:
-                    size = 0
-                count +=1
+                size = funTimes(size)
     
     if size > 0:
         trade = auth.place_order(
