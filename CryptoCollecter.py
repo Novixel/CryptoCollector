@@ -41,7 +41,7 @@ def funTimes(x):
     elif x >= 0.01:
         return float("%.2f"%x)
     elif x >= 0.001:
-        return float("%.3f"%x)
+        return float("%.4f"%x)
     elif x >= 0.0001:
         return float("%.4f"%x) 
 
