@@ -1,4 +1,10 @@
 [Version History]
+    Version 1.2 Rebuild:
+    - New Redesigned Portfolio System 
+    - Self Contained Bot with local storage
+    - Future Imporvement optimizations
+    - Ready For Testing
+
     Version 1.2.1b [BETA]
     - Add of float conversion func 
     - Add of output Logging
