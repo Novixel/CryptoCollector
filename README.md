@@ -24,7 +24,7 @@ Step #4 (Start Up the Bot!)
   *run the bot*
 
   Type in the console:
-    python3 cc.py   *enter
+    python3 Gui.py   *enter
 
   Enter you API Detail's 
   (Or CTRL-C To Stop The Program and open the info file manually and enter your info that way)
